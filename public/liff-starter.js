@@ -7,6 +7,7 @@ window.onload = function() {
 
     // if node is used, fetch the environment variable and pass it to the LIFF method
     // otherwise, pass defaultLiffId
+    // disableAll()
     if (useNodeJS) {
         fetch('/send-id')
             .then(function(reqResponse) {
