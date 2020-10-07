@@ -7,6 +7,7 @@ window.onload = function() {
 
     // if node is used, fetch the environment variable and pass it to the LIFF method
     // otherwise, pass defaultLiffId
+    disableAll()
     if (useNodeJS) {
         fetch('/send-id')
             .then(function(reqResponse) {
@@ -25,7 +26,17 @@ window.onload = function() {
         initializeLiffOrDie(myLiffId);
     }
 };
+function disableAll() {
+    document.getElementById("buttonGroup").classList.add('hidden');
+    document.getElementById("liffData").classList.add('hidden');
 
+    // document.getElementById('browserLanguage').classList.add('hidden');
+    // document.getElementById('sdkVersion').classList.add('hidden');
+    // document.getElementById('lineVersion').classList.add('hidden');
+    // document.getElementById('isInClient').classList.add('hidden');
+    // document.getElementById('isLoggedIn').classList.add('hidden');
+    // document.getElementById('deviceOS').classList.add('hidden');
+}
 /**
 * Check if myLiffId is null. If null do not initiate liff.
 * @param {string} myLiffId The LIFF ID of the selected element
@@ -62,9 +73,9 @@ function initializeLiff(myLiffId) {
  * Initialize the app by calling functions handling individual app components
  */
 function initializeApp() {
-    displayLiffData();
+    // displayLiffData();
     displayIsInClientInfo();
-    registerButtonHandlers();
+    // registerButtonHandlers();
 
     // check if the user is logged in/out, and disable inappropriate button
     if (liff.isLoggedIn()) {
@@ -165,7 +176,9 @@ function registerButtonHandlers() {
     });
 
     // get profile call
-    document.getElementById('getProfileButton').addEventListener('click', function() {
+    document.getElementById('getProfileButton').addEventListener('click', showProfile());
+
+    function showProfile() {
         liff.getProfile().then(function(profile) {
             document.getElementById('userIdProfileField').textContent = profile.userId;
             document.getElementById('displayNameField').textContent = profile.displayName;
@@ -184,7 +197,7 @@ function registerButtonHandlers() {
         }).catch(function(error) {
             window.alert('Error getting profile: ' + error);
         });
-    });
+    }
 
     document.getElementById('shareTargetPicker').addEventListener('click', function () {
         if (liff.isApiAvailable('shareTargetPicker')) {
