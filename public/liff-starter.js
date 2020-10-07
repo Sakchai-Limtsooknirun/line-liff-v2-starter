@@ -239,9 +239,13 @@ function registerButtonHandlers() {
     });
 
     document.getElementById('spotifyLoginButton').addEventListener('click', function() {
-        if (liff.isLoggedIn()) {
-            location.href = "https://4e1a504c6718.jp.ngrok.io/spotify/login/1e234234234";
-        }
+        if (liff.isLoggedIn()) {        
+        liff.getProfile().then(function(profile) {
+            location.href = "https://line-spotify-radio.herokuapp.com/spotify/login/"+profile.userId;
+        }).catch(function(error) {
+            window.alert('Error getting profile: ' + error);
+        });
+    }
     });
 }
 
