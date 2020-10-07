@@ -89,6 +89,7 @@ function initializeApp() {
         document.getElementById('liffLoginButton').disabled = true;
     } else {
         document.getElementById('liffLogoutButton').disabled = true;
+        document.getElementById('spotifyLoginButton').disabled = true;
     }
 }
 
@@ -111,6 +112,8 @@ function displayIsInClientInfo() {
     if (liff.isInClient()) {
         document.getElementById('liffLoginButton').classList.toggle('hidden');
         document.getElementById('liffLogoutButton').classList.toggle('hidden');
+        document.getElementById('spotifyLoginButton').classList.toggle('hidden');
+
         // document.getElementById('isInClientMessage').textContent = 'You are opening the app in the in-app browser of LINE.';
     } else {
         // document.getElementById('isInClientMessage').textContent = 'You are opening the app in an external browser.';
@@ -232,6 +235,12 @@ function registerButtonHandlers() {
         if (liff.isLoggedIn()) {
             liff.logout();
             window.location.reload();
+        }
+    });
+
+    document.getElementById('spotifyLoginButton').addEventListener('click', function() {
+        if (liff.isLoggedIn()) {
+            location.href = "https://4e1a504c6718.jp.ngrok.io/spotify/login/1e234234234";
         }
     });
 }
